@@ -4,8 +4,8 @@
 
 type Operation = 'add' | 'substract' | 'multiply' | 'divide' | 'remainder';
 
-function calculate(type: Operation, x: number, y: number) {
-  switch (type) {
+function calculate(command: Operation, x: number, y: number): number {
+  switch (command) {
     case 'add': {
       return x + y;
     }
@@ -16,10 +16,14 @@ function calculate(type: Operation, x: number, y: number) {
       return x * y;
     }
     case 'divide': {
+      if (y === 0) throw new Error('can not divide by zero');
       return x / y;
     }
     case 'remainder': {
       return x % y;
+    }
+    default: {
+      throw new Error('unknown command');
     }
   }
 }
