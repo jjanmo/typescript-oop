@@ -12,6 +12,10 @@
    * 보통 추상화라고 하면 인터페이스를 통한 구현이라고 말하지만 그것만이 추상화라고 말하지는 않는다.
    * -> 인터페이스를 통한 구현은 추상화시키는 방법 중의 한가지
    * -> 여기서는 2가지의 추상화 방법에 대해서 접근제한자와 인터페이스를 이용한 추상화
+   *
+   * ref : https://medium.com/@raymondjohnson121/abstraction-object-oriented-principles-in-typescript-b0ae13bd921d
+   * ✅ It is the process of hiding the internal complexity of a class
+   * while only requiring the absolute necessary data to function correctly.
    */
 
   // 접근제한자
@@ -67,5 +71,67 @@
 
   console.log(myCoffee);
 
-  // 인터페이스
+  // 인터페이스 (러프한 설명)
+  // -> 보통, 클래스가 인터페이스를 구현한다라고 말한다. 이 때 인터페이스에는 구현부가 빠진 무언가라고 보면 된다.
+  // -> 이를 바탕으로 클래스에서는 해당 인터페이스의 실질적인 구현을 한다. 즉 인터페이스란 클래스의 설계도와 같다.
+
+  // 인터페이스 컨벤션 : 1) 인터페이스 이름 앞에 I~~를 붙여서 표현
+  interface CoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+  }
+
+  // 인터페이스 컨벤션 : 2) 구현부가 있는 클래스 이름 뒤에 ~~Impl를 붙여서 표현 or 구분되는 다른 이름 명명
+  class CoffeeMakerImpl implements CoffeeMaker {
+    private coffeeBeans: number = 0;
+    private static BEANS_GRAM_PER_SHOT: number = 10;
+
+    constructor(coffeeBeans: number) {
+      this.coffeeBeans = coffeeBeans;
+    }
+
+    setCoffeeBeans(coffeeBeans: number) {
+      if (coffeeBeans < 0) {
+        throw new Error('value for coffee beans should be greater than 0');
+      }
+      this.coffeeBeans += coffeeBeans;
+    }
+
+    grindCoffeeBeans(shots: number) {
+      if (this.coffeeBeans < shots * CoffeeMakerImpl.BEANS_GRAM_PER_SHOT) {
+        throw new Error('not enough coffee beans');
+      }
+      this.coffeeBeans -= shots * CoffeeMakerImpl.BEANS_GRAM_PER_SHOT;
+    }
+
+    preheat(): void {
+      console.log('heating up......🔥');
+    }
+
+    extract(shots: number): CoffeeCup {
+      console.log('pulling......☕️');
+      return {
+        shots,
+        hasMilk: false,
+        hasHazelnut: false,
+        hasCaramel: false,
+      };
+    }
+
+    makeCoffee(shots: number): CoffeeCup {
+      this.grindCoffeeBeans(shots);
+      this.preheat();
+      return this.extract(shots);
+    }
+  }
+
+  const maker: CoffeeMakerImpl = new CoffeeMakerImpl(50);
+  maker.setCoffeeBeans(50);
+  const myCoffee1 = maker.makeCoffee(2);
+  console.log('myCoffee1 >>>', myCoffee1);
+
+  const maker1: CoffeeMaker = new CoffeeMakerImpl(50);
+  // maker1.setCoffeeBeans(50); // error : 인터페이스 안에는 없는 메소드이기때문에 접근 불가
+  //-> 인터페이스로 타입을 지정함으로서 내가 해당 객체에 어느 정도로 접근을 허용할 건지를 결정할 수 있다.
+  const myCoffee2 = maker1.makeCoffee(2);
+  console.log('myCoffee2 >>>', myCoffee2);
 }
