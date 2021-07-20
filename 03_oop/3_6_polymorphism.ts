@@ -73,9 +73,8 @@
       console.log('adding sweet milk...🥛');
     }
 
-    //overriding
     makeCoffee(shots: number): CoffeeCup {
-      const _coffee = super.makeCoffee(2); // 부모의 메소드를 이용하고 싶다면 super를 사용한다.
+      const _coffee = super.makeCoffee(2);
       this.addMilk();
       return {
         ..._coffee,
