@@ -71,7 +71,13 @@
    * -> 기능단위로 만들어진 클래스를 바탕으로 필요한 클래스에 주입해서 사용할 수 있다.
    * -> DI : Dependency Injection(의존성 주입)
    */
-  class CheapMilkSteamAutomation {
+
+  // Milk
+  interface MilkFrother {
+    addMilk(cup: CoffeeCup): CoffeeCup;
+  }
+
+  class CheapMilkSteamAutomation implements MilkFrother {
     private steamMilk(): void {
       console.log('steaming sweet milk...🥛');
     }
@@ -84,7 +90,38 @@
     }
   }
 
-  class CaramelMixAutomation {
+  class ColdMilkSteamAutomation implements MilkFrother {
+    private steamMilk(): void {
+      console.log('steaming cold milk...🥛');
+    }
+    addMilk(cup: CoffeeCup): CoffeeCup {
+      this.steamMilk();
+      return {
+        ...cup,
+        hasMilk: true,
+      };
+    }
+  }
+
+  class LoyalMilkSteamAutomation implements MilkFrother {
+    private steamMilk(): void {
+      console.log('steaming loyal milk...🥛');
+    }
+    addMilk(cup: CoffeeCup): CoffeeCup {
+      this.steamMilk();
+      return {
+        ...cup,
+        hasMilk: true,
+      };
+    }
+  }
+
+  // Caramel
+  interface CaramelMixer {
+    mixCaramel(cup: CoffeeCup): CoffeeCup;
+  }
+
+  class CaramelMixAutomation implements CaramelMixer {
     private getCaramel(): boolean {
       console.log('getting caramal from sugar...🍬');
       return true;
@@ -98,9 +135,26 @@
     }
   }
 
+  class LoyalCaramelMixer implements CaramelMixer {
+    private getCaramel(): boolean {
+      console.log('getting loyal caramal from brown sugar...🥮');
+      return true;
+    }
+    mixCaramel(cup: CoffeeCup): CoffeeCup {
+      const caramal = this.getCaramel();
+      return {
+        ...cup,
+        hasCaramel: caramal,
+      };
+    }
+  }
+
+  // Machine
+
   class CafeLatteMachine extends CoffeeMachine {
-    constructor(beans: number, private _serialNumber: string, private milkFrother: CheapMilkSteamAutomation) {
-      // CheapMilkSteamAutomation DI
+    constructor(beans: number, private _serialNumber: string, private milkFrother: MilkFrother) {
+      // 1) class CheapMilkSteamAutomation DI => 타이트 커플링 😱 👎
+      // 2) interface MilkFrother를 주입한다 => 디커플링 😀 👍
       super(beans);
     }
 
@@ -115,8 +169,9 @@
   }
 
   class CaramelCoffeeMachine extends CoffeeMachine {
-    constructor(beans: number, private caramelMixer: CaramelMixAutomation) {
-      // CaramelMixAutomation DI
+    constructor(beans: number, private caramelMixer: CaramelMixer) {
+      // 1) class CaramelMixAutomation DI => 타이트 커플링 😱 👎
+      // 2) interface CaramelMixer를 주입한다 => 디커플링 😀 👍
       super(beans);
     }
 
@@ -131,11 +186,7 @@
   // -> Composition 이용 ✅
 
   class CaramelCafeLatteMachine extends CoffeeMachine {
-    constructor(
-      beans: number,
-      private milkFrother: CheapMilkSteamAutomation,
-      private caramelMixer: CaramelMixAutomation
-    ) {
+    constructor(beans: number, private milkFrother: MilkFrother, private caramelMixer: CaramelMixer) {
       super(beans);
     }
 
@@ -147,11 +198,34 @@
   }
 
   // CaramelCafeLatteMachine은 주입된 milkFrother, caramelMixer가 어떻게 구현되었는지 알 필요없이 필요한 기능인지 여부를 판단하고 그냥 재사용할 수 있다.
-  // -> BUT 여기에는 치명적인 단점이 있다.
+  // -> BUT 여기에는 🔥치명적인 단점🔥이 있다.
   // -> CafeLatteMachine, CaramelCoffeeMachine, CaramelCafeLatteMachine는 CheapMilkSteamAutomation와 CaramelMixAutomation는 타이트하게 커플링을 맺고 있다.
   // -> 타이트하게 커플링을 맺고 있다 === CheapMilkSteamAutomation와 CaramelMixAutomation가 항상 필요하다.
   // -> 만약 CheapMilkSteamAutomation와 CaramelMixAutomation가 아닌 다른 거품기나 믹서기를 사용하게 되면 각각의 CafeLatteMachine, CaramelCoffeeMachine, CaramelCafeLatteMachine 클래스는
   //    역시 업데이트 되어야 한다.
   // -> CheapMilkSteamAutomation와 CaramelMixAutomation는 항상 이런 형태로만 존재할 수 밖에 없다.
   // ✅ 클래스와 클래스간의 관계가 서로 밀접하게 연결짓는 것은 좋지 않다.
+  // ✅ 타이트 커플링를 해결하는 방법 : 인터페이스의 활용 !!!
+
+  // Milk
+  const cheapMilkMixer = new CheapMilkSteamAutomation();
+  const loyaMilkMixer = new LoyalMilkSteamAutomation();
+  const coldMilkMixer = new ColdMilkSteamAutomation();
+
+  // Caramel
+  const cheapCaramelMixer = new CaramelMixAutomation();
+  const loyalCaramelMixer = new LoyalCaramelMixer();
+
+  // Machine
+  // -> 인터페이스를 구현한 다양한 우유와 카라멜 클래스를 통해서 다양한 커피 머신을 만들 수 있다.
+  // ->
+
+  const cafeLatteMachine = new CafeLatteMachine(20, 'S12134244', cheapMilkMixer);
+  const loyalLatteMachine = new CafeLatteMachine(20, 'S12134244', loyaMilkMixer);
+  const coldLatteMachine = new CafeLatteMachine(20, 'S12134244', coldMilkMixer);
+
+  const loyalCaramelCoffeeMachine = new CaramelCoffeeMachine(20, loyalCaramelMixer);
+  const cheapCaramelCoffeeMachine = new CaramelCoffeeMachine(20, cheapCaramelMixer);
+
+  const loyalColdCaramelCafeLatteMachine = new CaramelCafeLatteMachine(20, coldMilkMixer, loyalCaramelMixer);
 }
