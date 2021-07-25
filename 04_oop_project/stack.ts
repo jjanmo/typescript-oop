@@ -9,15 +9,13 @@
    *
    * ✅ '📌' : Self Feedback Index 표시
    *
-   * ✅ 추가 구현 사항
-   *  C -> push ⭕️
-   *  R -> getAll
-   *  U -> update
-   *  D -> pop ⭕️
+   *  Create -> push ⭕️
+   *  Delete -> pop ⭕️
 
    */
 
   type Node = {
+    readonly index: number;
     readonly value: string; // 현재 노드의 value
     // 📌 before:Node | null; // -> null 보다는 undefined -> 이런 경우 optional 문법 사용
     readonly before?: Node; // 이전 노드(참조값)
@@ -46,9 +44,9 @@
       if (this.size === this.capacity) {
         throw new Error('Stack OVERFLOW 😰');
       }
-      const afterNode: Node = { value, before: this.head };
-      this.head = afterNode;
       this._size++;
+      const afterNode: Node = { index: this.size, value, before: this.head };
+      this.head = afterNode;
     }
 
     pop(): Node {
