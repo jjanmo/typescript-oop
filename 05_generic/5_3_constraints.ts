@@ -47,4 +47,27 @@
 
   jjanmoAfterPay.workFullTime();
   michaelAfterPay.workPartTime();
+
+  // Quiz
+  // -> 아래와 같이 동작하는 getValue라는 함수를 제네릭을 이용하여 만들어보기
+  const obj1 = {
+    name: 'jjanmo',
+    age: 20,
+  };
+
+  const obj2 = {
+    animal: '🦍',
+  };
+
+  // 📌 K extends keyof T : K는 T의 key 타입의 한가지이다 라는 의미!!
+  // T[K] : object T타입의 K라는 키타입을 가진 값이 리턴된다 는 의미!!
+  function getValue<T, K extends keyof T>(obj: T, key: K): T[K] {
+    return obj[key];
+  }
+
+  console.log(getValue(obj1, 'name')); // jjanmo
+  console.log(getValue(obj1, 'age')); // 20
+  console.log(getValue(obj2, 'animal')); // 🦍
+
+  // console.log(getValue(obj2, 'name')); //error : name은 obj2의 키 값중에 한가지가 아니다.
 }
