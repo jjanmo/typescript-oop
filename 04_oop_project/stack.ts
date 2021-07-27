@@ -15,7 +15,6 @@
    */
 
   type Node = {
-    readonly index: number;
     readonly value: string; // 현재 노드의 value
     // 📌 before:Node | null; // -> null 보다는 undefined -> 이런 경우 optional 문법 사용
     readonly before?: Node; // 이전 노드(참조값)
@@ -45,7 +44,7 @@
         throw new Error('Stack OVERFLOW 😰');
       }
       this._size++;
-      const afterNode: Node = { index: this.size, value, before: this.head };
+      const afterNode: Node = { value, before: this.head };
       this.head = afterNode;
     }
 
