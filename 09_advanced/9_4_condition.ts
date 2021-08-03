@@ -20,4 +20,9 @@
     : T extends Function
     ? 'function'
     : 'object';
+
+  type T1 = TypeName<string>; // T1 : string
+  type T2 = TypeName<10>; // T2 : number
+  type T3 = TypeName<() => void>; // T3 : function
+  type T4 = TypeName<{}>; // T4 : object
 }
