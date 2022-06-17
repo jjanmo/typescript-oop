@@ -68,7 +68,7 @@ h1 {
   background-color: rgb(221, 218, 222);
 }
 main {
-  height: 70vh;
+  height: 75vh;
   overflow-y: auto;
 }
 footer {
@@ -79,6 +79,7 @@ footer {
   background-color: rgba(0, 206, 201, 0.3);
 }
 
+/* section */
 section {
   position: relative;
   width: 90%;
@@ -107,7 +108,7 @@ section {
   height: 80%;
   object-fit: contain;
 }
-section .contents .title {
+.title {
   margin: 15px 0;
   font-size: 20px;
   font-weight: bold;
@@ -118,6 +119,10 @@ section .contents .title {
   padding: 1rem 2rem 2rem 2rem;
   display: flex;
   flex-direction: column;
+}
+.note .title,
+.task .title {
+  color: #4834d4;
 }
 .close-button {
   all: unset;
@@ -136,4 +141,58 @@ section .contents .title {
 }
 .close-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* dialog */
+.dialog {
+  width: 90%;
+  height: auto;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  color: #30336b;
+  background-color: rgba(126, 214, 223, 0.7);
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+.row label {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+}
+.row input {
+  padding: 5px 10px;
+}
+.button-container {
+  display: flex;
+  align-self: flex-end;
+}
+.button-container button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: 5px;
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: white;
+}
+.add-button:hover {
+  color: white;
+  background-color: #22a6b3;
+}
+.cancel-button:hover {
+  color: white;
+  background-color: #eb4d4b;
 }
