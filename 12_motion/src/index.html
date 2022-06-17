@@ -18,14 +18,55 @@
         <div class="header-container">
           <h1>MOTION</h1>
           <div class="nav">
-            <button>IMAGE</button>
-            <button>VIDEO</button>
-            <button>NOTE</button>
-            <button>TASK</button>
+            <button data-type="image">IMAGE</button>
+            <button data-type="video">VIDEO</button>
+            <button data-type="note">NOTE</button>
+            <button data-type="task">TASK</button>
           </div>
         </div>
       </header>
-      <main></main>
+      <main>
+        <section class="image">
+          <div class="contents">
+            <img
+              src="https://i.picsum.photos/id/866/536/354.jpg?hmac=tGofDTV7tl2rprappPzKFiZ9vDh5MKj39oa2D--gqhA"
+              alt="image"
+            />
+            <div class="title">This is sample image</div>
+          </div>
+          <button class="close-button">close</button>
+        </section>
+
+        <section class="video">
+          <div class="contents">
+            <video
+              src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+              autoplay
+              controls
+            ></video>
+            <div class="title">This is sample video</div>
+          </div>
+          <button class="close-button">close</button>
+        </section>
+
+        <section class="note">
+          <div class="contents">
+            <div class="title">This is Note Title</div>
+            <div class="body">This is Note Body</div>
+          </div>
+          <button class="close-button">close</button>
+        </section>
+
+        <section class="task">
+          <div class="contents">
+            <div class="title">This is sample Todo</div>
+            <ul class="list">
+              <li><input type="checkbox" /> This is sample check todo</li>
+            </ul>
+          </div>
+          <button class="close-button">close</button>
+        </section>
+      </main>
       <footer>@Created by JJanmo feat Typescript&Ellie</footer>
     </div>
     <script src="../build/app.js"></script>
