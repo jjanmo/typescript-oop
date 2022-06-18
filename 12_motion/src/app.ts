@@ -10,11 +10,10 @@ class App {
   handleClick(e: Event) {
     const target = e.target as HTMLButtonElement;
     const type = target.dataset.type as MotionType;
-
     const $dialogWrapper = document.querySelector(
       '.dialog-wrapper'
     ) as HTMLDivElement;
-    $dialogWrapper?.classList.remove('hidden');
+    $dialogWrapper.classList.remove('hidden');
     new Dialog($dialogWrapper, type);
   }
 }

@@ -124,7 +124,7 @@ section {
 .task .title {
   color: #4834d4;
 }
-.close-button {
+.delete-button {
   all: unset;
   position: absolute;
   top: 0;
@@ -139,7 +139,7 @@ section {
   cursor: pointer;
   transition: 0.3s;
 }
-.close-button:hover {
+.delete-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
