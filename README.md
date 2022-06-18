@@ -4,6 +4,8 @@
 
 ## Motion Project
 
+> in `12_motion` directory
+
 - Must have
 
   > CRUD에 초점을 맞추어 구현한다 🚀
@@ -31,3 +33,7 @@
   [ ] Drag & Drop 기능을 구현
 
   [ ] 모바일 혹은 테블릿에서 적절한 레이아웃을 유지한다.
+
+  [ ] TODO인 경우 체크박스 기능
+
+  [ ] NOTE나 TODO를 여러개 추가 가능
