@@ -1,15 +1,18 @@
 class Dialog {
   private label: string = '';
-  constructor(public target: HTMLElement, public type: MotionType) {
+  private _handleClick: (e: MouseEvent) => void;
+  constructor(public target: HTMLDivElement, private type: MotionType) {
     this.target = target;
     this.label = type === 'image' || type === 'video' ? 'url' : 'contents';
     this.render();
 
-    target.addEventListener('click', this.handleClick.bind(this));
+    this._handleClick = this.handleClick.bind(this);
+    target.addEventListener('click', this._handleClick);
   }
 
   handleClick(e: MouseEvent) {
     const className = (e.target as HTMLElement).className;
+
     if (className === 'dialog-wrapper' || className === 'cancel-button') {
       this.hide();
     } else if (className === 'add-button') {
@@ -18,10 +21,13 @@ class Dialog {
         `#${this.label}`
       ) as HTMLInputElement;
 
-      if (!$titleInput || !$bodyInput) return;
+      if (!$titleInput?.value || !$bodyInput?.value) return;
 
-      // section 생성
-      console.log($titleInput.value, $bodyInput.value);
+      const data: Data = {
+        title: $titleInput.value,
+        body: $bodyInput.value,
+      };
+      new Section(this.type, data);
       this.hide();
     }
   }
@@ -29,6 +35,7 @@ class Dialog {
   hide() {
     this.target.innerHTML = '';
     this.target.classList.add('hidden');
+    this.target.removeEventListener('click', this._handleClick);
   }
 
   render() {
