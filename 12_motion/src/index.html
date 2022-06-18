@@ -13,15 +13,16 @@
     <title>Motion</title>
   </head>
   <body>
+    <div class="dialog-wrapper hidden"></div>
     <div class="wrapper">
       <header>
         <div class="header-container">
           <h1>MOTION</h1>
           <div class="nav">
-            <button data-type="image">IMAGE</button>
-            <button data-type="video">VIDEO</button>
-            <button data-type="note">NOTE</button>
-            <button data-type="task">TASK</button>
+            <button class="upload-button" data-type="image">IMAGE</button>
+            <button class="upload-button" data-type="video">VIDEO</button>
+            <button class="upload-button" data-type="note">NOTE</button>
+            <button class="upload-button" data-type="task">TASK</button>
           </div>
         </div>
       </header>
@@ -67,24 +68,12 @@
           </div>
           <button class="close-button">close</button>
         </section>
-
-        <div class="dialog">
-          <div class="row">
-            <label for="title">Title</label>
-            <input type="text" id="title" />
-          </div>
-          <div class="row">
-            <label for="url">URL</label>
-            <input type="text" id="url" />
-          </div>
-          <div class="button-container">
-            <button class="add-button">add</button>
-            <button class="cancel-button">cancel</button>
-          </div>
-        </div>
       </main>
       <footer>@Created by JJanmo feat Typescript&Ellie</footer>
     </div>
+
+    <script src="../build/section.js"></script>
+    <script src="../build/dialog.js"></script>
     <script src="../build/app.js"></script>
   </body>
 </html>
