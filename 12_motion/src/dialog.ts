@@ -1,8 +1,12 @@
 class Dialog {
   private label: string = '';
   private _handleClick: (e: MouseEvent) => void;
-  constructor(public target: HTMLDivElement, private type: MotionType) {
-    this.target = target;
+
+  constructor(
+    public target: HTMLDivElement,
+    public type: MotionType,
+    public data?: Data // optional for section updating
+  ) {
     this.label = type === 'image' || type === 'video' ? 'url' : 'contents';
     this.render();
 
