@@ -1,8 +1,10 @@
-import Page from './page.js';
+import Page from './components/page.js';
 class App {
-  constructor() {
-    new Page();
+  private readonly page: Page;
+  constructor(root: HTMLElement) {
+    this.page = new Page();
+    this.page.attachTo(root);
   }
 }
 
-new App();
+new App(document.querySelector('main')! as HTMLElement);
