@@ -8,23 +8,23 @@
     <title>Motion</title>
   </head>
   <body>
-    <div class="background"></div>
-    <header>
-      <h1>Motion</h1>
-      <nav>
-        <ul>
-          <li>image</li>
-          <li>video</li>
-          <li>note</li>
-          <li>todo</li>
+    <div class="app">
+      <header>
+        <h1 class="title">Motion</h1>
+        <ul class="control-panel">
+          <li><button id="new-image" class="upload-button">image</button></li>
+          <li><button id="new-video" class="upload-button">video</button></li>
+          <li><button id="new-note" class="upload-button">note</button></li>
+          <li><button id="new-todo" class="upload-button">todo</button></li>
         </ul>
-      </nav>
-    </header>
-    <main></main>
-    <footer>
-      ⒸCopyright by JJanmo&Dreamcoding Ellie 🚀 All rights reserved.
-    </footer>
-    <script src="dist/page.js"></script>
-    <script src="dist/app.js"></script>
+      </header>
+      <main></main>
+      <footer>
+        ⒸCopyright by JJanmo&Dreamcoding Ellie 🚀 All rights reserved.
+      </footer>
+    </div>
+
+    <script type="module" src="dist/page.js" defer></script>
+    <script type="module" src="dist/app.js" defer></script>
   </body>
 </html>

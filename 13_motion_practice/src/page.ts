@@ -1,4 +1,4 @@
-class Page {
+export default class Page {
   public target: HTMLElement;
   constructor() {
     this.target = document.querySelector('main') as HTMLElement;
