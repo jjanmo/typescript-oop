@@ -4,7 +4,9 @@
 
 ## Motion Project
 
-> in `12_motion` directory
+> in `12_motion` directory : self implementation
+
+> `13_motion_practice` 는 실습과정을 기록한 것, 기존에 내가 구현한 것과 비교 분석, 피드백을 위한 작업
 
 - Must have
 
